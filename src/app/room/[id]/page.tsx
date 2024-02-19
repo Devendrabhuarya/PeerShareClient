@@ -2,13 +2,14 @@
 
 import logo from '@/images/logo.png';
 import LogoutIcon from '@mui/icons-material/Logout';
-import JoinConnectionModel from '@/compoent/joinConnectionModel';
-import CreateConnectionModel from '@/compoent/createConnectionModel';
+import VideocamIcon from '@mui/icons-material/Videocam';
+import CallIcon from '@mui/icons-material/Call';
 import { useState, useEffect, useCallback } from 'react';
 import { useSocket } from '@/context/socketProvider';
 import { ACTION } from '@/helper/action';
 import peer from '@/helper/peer';
 import ReactPlayer from "react-player";
+import SendIcon from '@mui/icons-material/Send';
 
 export default function RoomPage() {
     const socket = useSocket();
@@ -126,17 +127,18 @@ export default function RoomPage() {
     return (
 
         <div className='h-screen bg-primary text-secendary relative'>
-            <div className="navbar flex justify-between pt-10 pb-6 px-20 border-b-2 border-secendary">
+            <div className="navbar flex justify-between pt-10 pb-6 px-20 border-b-2 border-secendary md:px-6">
                 <div className="logo">
-                    <img src={logo.src} alt="" className='w-56' />
+                    <img src={logo.src} alt="" className='w-56 md:w-20' />
                 </div>
                 <div className="profile flex justify-center items-center text-center">
-                    <span className="username text-2xl font-bold font-secondary mr-3">Welcome devendra</span>
-                    <LogoutIcon className='cursor-pointer text-4xl' />
+                    <span className="username text-2xl font-bold font-secondary mr-3 md:text-sm">Welcome devendra</span>
+                    <LogoutIcon className='cursor-pointer text-4xl md:text-2xl' />
                 </div>
             </div>
+
             <div className="room flex relative  pt-10 pb-6 px-20 border-b-2 border-secendary
-            h-4/5 gap-6">
+            h-4/5 gap-6 md:px-2 md:pt-3 md:flex-col">
                 <div className="video basis-8/12 relative">
                     <div className="remoteUserVideo h-96 bg-third relative overflow-hidde">
                         <ReactPlayer
@@ -152,15 +154,14 @@ export default function RoomPage() {
                                 url={myStream}
                                 width='100%'
                                 height='100%'
-                            
                             />
                         </div>
                     </div>
 
                     <div className="handler flex text-center items-center justify-center">
-                        <span className='p-3 m-2 flex justify-center item-center text-center bg-third rounded-full'> <LogoutIcon className='cursor-pointer text-4xl bg-thirdrounded-full' /></span>
-                        <span className='p-3  m-2 flex justify-center item-center text-center bg-third rounded-full'> <LogoutIcon className='cursor-pointer text-4xl bg-thirdrounded-full' /></span>
-                        <span className='p-3 m-2 flex justify-center item-center text-center bg-third rounded-full'> <LogoutIcon className='cursor-pointer text-4xl bg-thirdrounded-full' /></span>
+
+                        {remoteSocketId && <button onClick={handleCallUser}> <span className='p-3  m-2 flex justify-center item-center text-center bg-third rounded-full'> <CallIcon className='cursor-pointer text-4xl bg-thirdrounded-full' /></span></button>}
+                        {remoteSocketId && <button onClick={sendStreams}> <span className='p-3  m-2 flex justify-center item-center text-center bg-third rounded-full'> <VideocamIcon className='cursor-pointer text-4xl bg-thirdrounded-full' /></span></button>}
                     </div>
                 </div>
                 <div className="text flex bg-third h-full w-full bg-red basis-4/12">
@@ -170,12 +171,10 @@ export default function RoomPage() {
                             placeholder='type something'
                             className='bg-secendary text-primary h-full w-full'
                         />
-                        <button className='bg-third'>send</button>
+                        <button className=''><SendIcon className='text-primary' /></button>
                     </div>
                 </div>
             </div>
-            {remoteSocketId && <button onClick={handleCallUser} className='bg-secendary p-3 text-primary m-3'>call user</button>}
-            {remoteSocketId && <button onClick={sendStreams} className='bg-secendary p-3 text-primary  m-3'>send my stream</button>}
 
         </div>
     )

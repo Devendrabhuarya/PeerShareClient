@@ -59,15 +59,15 @@ export default function LoginPage() {
             setInputData({
                 email: '',
                 password: '',
-                username:''
+                username: ''
             });
         }
     }
     return (
-        <div className='flex bg-primary  text-black px-40 pb-9 '>
-            <div className="illutration   basis-6/12 border-r-4  border-secendary">
+        <div className='flex bg-primary  text-black px-40 pb-9 md:flex-col md:px-0 '>
+            <div className="illutration   basis-6/12 border-r-4  border-secendary md:border-b-2 md:border-r-0">
                 <img src={illutration.src} alt=""
-                    className='h-full m-6' />
+                    className='h-full m-6  md:m-auto' />
             </div>
             <div className="signupfiled basis-6/12 flex flex-col items-center">
                 <h1 className='text-7xl text-center font-tag font-bold mt-20'>Sign up</h1>
@@ -80,7 +80,7 @@ export default function LoginPage() {
                                     value={val.id === 'email' ? inputData.email : val.id === 'password' ? inputData.password : inputData.username}
                                     name={val.id}
                                     title='warning'
-                                    className='h-16 bg-third  font-serif  border-2 focus:border-secendary  w-96 rounded-md'
+                                    className='h-16 bg-third  font-serif sm:w-60  border-2 focus:border-secendary  w-96 rounded-md'
                                     onChange={handleOnChange} />
                             </div>
                         </>
@@ -98,7 +98,7 @@ export default function LoginPage() {
                     <GoogleIcon className='text-4xl cursor-pointer' />
                 </div>
                 <Link href={'login'}>
-                    <button className='px-3 text-2xl font-bold  capitalize mt-5 py-2 rounded-md text-primary bg-secendary font-secondary'>
+                    <button className='px-3 text-2xl font-bold  capitalize mt-5 py-2 rounded-md text-primary bg-secendary font-secondary md:text-lg' >
                         Already have an account
                         <ArrowForwardIcon className='ml-2 font-bold' />
                     </button>

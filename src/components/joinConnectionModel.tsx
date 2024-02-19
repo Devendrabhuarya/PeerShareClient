@@ -48,11 +48,14 @@ const JoinConnectionModel: NextPage<HomeProps> = ({ setShowModel }) => {
         });
     }
     return (
-        <div className='h-screen text-primary  top-0 w-full flex justify-center  items-center opacity-10 '
+        <div className='h-screen text-primary  top-0 w-full flex justify-center  items-center  '
             style={{ position: 'absolute', background: 'rgb(0,0,0,0.5)' }}>
 
-            <div className='relative cursor-pointer'>
-                <span
+            <div className='relative cursor-pointer bg-secendary rounded-3xl'>
+        
+                <div className='bg-secendary  px-10 py-8  rounded-3xl md:px-5'
+                    style={{ padding: '60px' }} >
+                                <span
                     onClick={setShowModel}
                     style={{
                         position: 'absolute', top: '5px', right: '8px',
@@ -60,18 +63,16 @@ const JoinConnectionModel: NextPage<HomeProps> = ({ setShowModel }) => {
                     }}
 
                 >
-                    <CloseIcon className='text-3xl' style={{ fontSize: '250%' }} />
+                    <CloseIcon className='text-3xl' />
                 </span>
-                <div className='bg-secendary opacity-95 px-10 py-8  rounded-3xl'
-                    style={{ padding: '60px' }} >
                     {inputField.map((val, ind) => (
-                        <div className="inputs flex flex-col mt-3 text-start" key={ind}>
+                        <div className="inputs flex flex-col mt-3 text-start " key={ind}>
                             <label htmlFor={val.id} className=' font-serif font-light'>{val.lable}</label>
                             <input type="text" id={val.id} placeholder={val.placeholder}
                                 value={val.id === 'name' ? inputData.name : inputData.roomId}
                                 name={val.id}
                                 title='warning'
-                                className='h-16 bg-third  font-serif text-secendary border-2 focus:border-secendary  w-96 rounded-md'
+                                className='h-16 bg-third  font-serif text-secendary border-2 focus:border-secendary w-96 rounded-md md:w-64  md:h-10'
                                 onChange={handleOnChange} />
                         </div>
                     ))

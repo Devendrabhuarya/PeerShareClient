@@ -40,7 +40,13 @@ const config: Config = {
         extrabold: '800',
         'extra-bold': '800',
         black: '900',
-      }
+      },
+      screens: {
+        'sm': { 'max': '767px' },
+        'md': { 'max': '1023px' },
+        'lg': { 'max': '1279px' },
+        'xl': { 'min': '1280px' },
+      },
     },
   },
   plugins: [],

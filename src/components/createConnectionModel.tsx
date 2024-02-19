@@ -58,21 +58,20 @@ const CreateConnectionModel: NextPage<HomeProps> = ({ setShowModel }) => {
         socket?.on(ACTION.ROOM_JOIN, handleRoomJoin);
     }, [socket]);
     return (
-        <div className='h-screen text-primary  top-0 w-full flex justify-center  items-center opacity-10 '
+        <div className='h-screen text-primary  top-0 w-full flex justify-center  items-center  '
             style={{ position: 'absolute', background: 'rgb(0,0,0,0.5)' }}>
 
-            <div className='relative cursor-pointer'>
+            <div className='relative cursor-pointer bg-secendary rounded-3xl'>
                 <span
                     onClick={setShowModel}
                     style={{
                         position: 'absolute', top: '5px', right: '8px',
 
                     }}
-
                 >
-                    <CloseIcon className='text-3xl' style={{ fontSize: '250%' }} />
+                    <CloseIcon className='text-3xl'  />
                 </span>
-                <div className='bg-secendary opacity-95 px-10 py-8  rounded-3xl'
+                <div className='  px-10 py-8  rounded-3xl'
                     style={{ padding: '60px' }} >
                     {inputField.map((val, ind) => (
                         <div className="inputs flex flex-col mt-3 text-start" key={ind}>
@@ -81,7 +80,7 @@ const CreateConnectionModel: NextPage<HomeProps> = ({ setShowModel }) => {
                                 value={val.id === 'name' ? inputData.name : inputData.roomId}
                                 name={val.id}
                                 title='warning'
-                                className='h-16 bg-third  font-serif text-secendary border-2 focus:border-secendary  w-96 rounded-md'
+                                className='h-16 bg-third  font-serif text-secendary border-2 focus:border-secendary w-96 rounded-md md:w-64  md:h-10'
                                 onChange={handleOnChange} />
                         </div>
                     ))
@@ -90,7 +89,7 @@ const CreateConnectionModel: NextPage<HomeProps> = ({ setShowModel }) => {
                     <div className="inputs flex flex-col mt-3 text-start" >
                         <label htmlFor='roomType' className='font-serif font-light'>Room-Type</label>
                         <select name='roomType' id="roomType"
-                            className='h-16 bg-third  font-serif text-secendary border-2 focus:border-secendary  w-96 rounded-md'
+                            className='h-16 bg-third  font-serif text-secendary border-2 focus:border-secendary   rounded-md md:w-64 md:h-10 '
                             onChange={handleOnChange}
                         >
                             <option value="chat">Chat</option>
@@ -100,7 +99,7 @@ const CreateConnectionModel: NextPage<HomeProps> = ({ setShowModel }) => {
                     </div>
 
                     <div className='text-center'>
-                        <button className='px-20 mt-10 mx-auto  font-bold  py-2 rounded-3xl text-secendary bg-primary'
+                        <button className='px-20 mt-10 mx-auto md:px-10 font-bold  py-2 rounded-3xl text-secendary bg-primary'
                             onClick={handleOnSubmit}>Create Room</button>
                     </div>
                 </div>
