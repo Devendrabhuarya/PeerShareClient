@@ -48,11 +48,14 @@ const CreateConnectionModel: NextPage<HomeProps> = ({ setShowModel }) => {
             });
             return false;
         }
-        socket?.emit(ACTION.ROOM_JOIN, { email: inputData.name, room: inputData.roomId });
+        socket?.emit(ACTION.ROOM_JOIN, { email: inputData.name, room: inputData.roomId, roomType: inputData.roomType });
     }
-    const handleRoomJoin = ({ email, room }: any) => {
-        console.log(email, room);
-        router.push(`/room/${room}`);
+    const handleRoomJoin = ({ email, room, roomType, id }: any) => {
+        console.log(email, room, roomType, id);
+        if (roomType === 'chat')
+            router.push(`/chatroom/${room}`);
+        else
+            router.push(`/room/${room}`);
     }
     useEffect(() => {
         socket?.on(ACTION.ROOM_JOIN, handleRoomJoin);
@@ -69,7 +72,7 @@ const CreateConnectionModel: NextPage<HomeProps> = ({ setShowModel }) => {
 
                     }}
                 >
-                    <CloseIcon className='text-3xl'  />
+                    <CloseIcon className='text-3xl' />
                 </span>
                 <div className='  px-10 py-8  rounded-3xl'
                     style={{ padding: '60px' }} >
