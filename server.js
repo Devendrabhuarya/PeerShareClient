@@ -23,14 +23,14 @@ const socketidToEmailMap = new Map();
 
 io.on("connection", (socket) => {
     console.log(`Socket Connected`, socket.id);
-    socket.on(ACTION.ROOM_JOIN, ({ email, room }) => {
+    socket.on(ACTION.ROOM_JOIN, ({ email, room, roomType }) => {
         emailToSocketIdMap.set(email, socket.id);
         socketidToEmailMap.set(socket.id, email);
-        io.to(room).emit(ACTION.USER_JOIN, { email, id: socket.id });
+        io.to(room).emit(ACTION.USER_JOIN, { email, id: socket.id, room });
         socket.join(room);
-        io.to(socket.id).emit(ACTION.ROOM_JOIN, { email, room });
+        io.to(socket.id).emit(ACTION.ROOM_JOIN, { email, room, roomType, id: socket.id });
     });
-
+    // video call logic
     socket.on(ACTION.USER_CALL, ({ to, offer }) => {
         console.log(to, offer);
         io.to(to).emit(ACTION.INCOMING_CALL, { from: socket.id, offer });
@@ -50,6 +50,19 @@ io.on("connection", (socket) => {
         console.log("peer:nego:done", ans);
         io.to(to).emit("peer:nego:final", { from: socket.id, ans });
     });
+
+
+    // chat logic
+    socket.on(ACTION.SEND_OWN_ID, ({ to }) => {
+        const email = socketidToEmailMap.get(socket.id);
+        io.to(to).emit(ACTION.RECIEVE_USER_ID, { id: socket.id, email });
+    })
+
+    socket.on(ACTION.SEND_TEXT_MESSAGE, ({ message, to }) => {
+        io.to(to).emit(ACTION.RECIEVE_TEXT_MESSAGE, { message: message, from: socket.id, me: false });
+        io.to(socket.id).emit(ACTION.RECIEVE_TEXT_MESSAGE, { message: message, from: socket.id, me: true });
+    });
+
 
 });
 
